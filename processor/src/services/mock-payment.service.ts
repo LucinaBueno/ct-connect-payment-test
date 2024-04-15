@@ -19,6 +19,7 @@ import { CreatePayment, MockPaymentServiceOptions } from './types/mock-payment.t
 import { PaymentOutcome, PaymentResponseSchemaDTO } from '../dtos/mock-payment.dto';
 import { getCartIdFromContext, getPaymentInterfaceFromContext } from '../libs/fastify/context/context';
 import { randomUUID } from 'crypto';
+import { log } from '../libs/logger/index';
 
 export class MockPaymentService extends AbstractPaymentService {
   private allowedCreditCards = ['4111111111111111', '5555555555554444', '341925950237632'];
@@ -163,6 +164,7 @@ export class MockPaymentService extends AbstractPaymentService {
    * @returns Promise with mocking data containing operation status and PSP reference
    */
   public async createPayment(opts: CreatePayment): Promise<PaymentResponseSchemaDTO> {
+    log.info('********** mock-payment.route.ts createPayment() -> ' + JSON.stringify(opts));
     const ctCart = await this.ctCartService.getCart({
       id: getCartIdFromContext(),
     });

@@ -7,6 +7,7 @@ import {
   PaymentResponseSchemaDTO,
 } from '../dtos/mock-payment.dto';
 import { MockPaymentService } from '../services/mock-payment.service';
+import { log } from '../libs/logger/index';
 
 type PaymentRoutesOptions = {
   paymentService: MockPaymentService;
@@ -26,6 +27,7 @@ export const paymentRoutes = async (fastify: FastifyInstance, opts: FastifyPlugi
       },
     },
     async (request, reply) => {
+      log.info('------>>>> mock-payment.route.ts /payments: body: ' + JSON.stringify(request.body));
       const resp = await opts.paymentService.createPayment({
         data: request.body,
       });
