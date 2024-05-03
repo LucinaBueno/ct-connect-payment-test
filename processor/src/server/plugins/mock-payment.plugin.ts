@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { paymentSDK } from '../../payment-sdk';
-import { paymentRoutes } from '../../routes/mock-payment.route';
+import { paymentRoutes, stripeWebhooksRoutes } from '../../routes/mock-payment.route';
 import { MockPaymentService } from '../../services/mock-payment.service';
 
 export default async function (server: FastifyInstance) {
@@ -12,5 +12,10 @@ export default async function (server: FastifyInstance) {
   await server.register(paymentRoutes, {
     paymentService: mockPaymentService,
     sessionHeaderAuthHook: paymentSDK.sessionHeaderAuthHookFn,
+  });
+
+  await server.register(stripeWebhooksRoutes, {
+    //paymentService: mockPaymentService,
+    //sessionHeaderAuthHook: paymentSDK.sessionHeaderAuthHookFn,
   });
 }

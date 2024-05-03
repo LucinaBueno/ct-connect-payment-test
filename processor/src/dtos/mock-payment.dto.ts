@@ -29,3 +29,9 @@ export const PaymentResponseSchema = Type.Object({
 
 export type PaymentRequestSchemaDTO = Static<typeof PaymentRequestSchema>;
 export type PaymentResponseSchemaDTO = Static<typeof PaymentResponseSchema>;
+
+export const StripeWebhookPayloadSchema = Type.Object({
+  type: Type.String(),
+});
+
+export type StripeWebhookPayloadDTO = Static<typeof StripeWebhookPayloadSchema>;

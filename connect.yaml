@@ -2,6 +2,8 @@ deployAs:
   - name: processor
     applicationType: service
     endpoint: /
+    scripts:
+      postDeploy: npm install && npm run build && npm run connectors:post-deploy
     configuration:
       standardConfiguration:
         - key: CTP_PROJECT_KEY
@@ -20,8 +22,14 @@ deployAs:
           description: JWKs url
         - key: CTP_JWT_ISSUER
           description: JWT Issuer for jwt validation
+        - key: CTP_REGION
+          description: Commercetools project region
+        - key: CTP_CONNECT_DEPLOYMENT_KEY
+          description: Deployment key of this Connector, this is used to config Stripe Webhooks in the postDeploy script
       securedConfiguration:
         - key: CTP_CLIENT_SECRET
           description: Commercetools client secret
+        - key: STRIPE_SECRET_KEY
+          description: Stripe accoung secret key
   - name: enabler
     applicationType: assets
